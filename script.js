@@ -613,11 +613,11 @@ var rawData = {
 
 // construct the data structure
 function findGroupParent(needle,haystack) {
-  // we look for the item with the same cluster name and a parent = 1 
+  // we look for the item with the same cluster name and a parent = 1
   var parent = 'null';
   $.each(haystack.nodes, function(index, value) {
     // console.log(value,index,needle.cluster,needle.parent,"type", needle.type);
-    
+
     if (parent === 'null') {
       if ((needle.cluster === 'ResearchGroup') && (value.cluster === "DirectorsOffice")){
         parent = value.id;
@@ -640,26 +640,26 @@ function findGroupParent(needle,haystack) {
         parent = value.id;
       }
     }
-    
-  });   
-    
+
+  });
+
   return parent;
 }
 
 // Crosslink bateman research to bateman serivce (make a mess!)
 function findGroupParentByName(needle,haystack) {
-  // we look for the item with the same cluster name and a parent = 1 
+  // we look for the item with the same cluster name and a parent = 1
   var parent = 'null';
-  $.each(haystack.nodes, function(index, value) {    
+  $.each(haystack.nodes, function(index, value) {
     if (parent === 'null' && needle.leader) {
       if ((needle.leader === value.leader) && (value.name !== needle.name) && (value.type !== needle.type) && value.parent !== 1 && needle.parent !== 1) {
         // console.log(needle.leader,value.leader,'test')
         parent = value.id;
       }
     }
-    
-  });   
-    
+
+  });
+
   return parent;
 }
 
@@ -672,7 +672,7 @@ function findGroupParentByName(needle,haystack) {
 function constructGroupParents(dataSet) {
   $.each(dataSet.nodes, function(index, value) {
     // console.log(value,index);
-    
+
     var itemParent = findGroupParent(value,dataSet);
     if (itemParent != 'null' && value.cluster != "DirectorsOffice" && value.id != itemParent) {
       dataSet.links.push({"source":value.id,"target":itemParent,"value": 0.5});
@@ -682,15 +682,15 @@ function constructGroupParents(dataSet) {
     if (itemParentByName != 'null' && value.cluster != "DirectorsOffice" && value.id != itemParentByName) {
       dataSet.links.push({"source":value.id,"target":itemParentByName,"value": 0.1});
     }
-    
-  }); 
-  
+
+  });
+
   return dataSet;
 }
 
 function constructData(data) {
   var newData = {"nodes":[],"links":[]};
-  
+
   // construct the node titles
   $.each(data.node, function(index, value) {
     // console.log(value,index);
@@ -698,7 +698,7 @@ function constructData(data) {
     if (value['Org-chart-options'] === 'parent') {
       isParent = 1;
     }
-    
+
     var newName = value.Group;
     // if there's "john doe team:", drop it
     // if (value.Group.indexOf(':') > 0) {
@@ -711,7 +711,7 @@ function constructData(data) {
     } else if (value.Leader) {
       newName = newName + ", " + value.Leader;
     }
-    
+
     var photo = 'none';
     if (value.imagevisibility == "Show the image on the public website") {
       photo = 'https://www.ebi.ac.uk/sites/ebi.ac.uk/files/styles/medium/public/person/image/' + value.photo;
@@ -725,13 +725,13 @@ function constructData(data) {
   newData.nodes.push({"id":"ServicesGroup", "name":"Services", "cluster": "ServicesGroup", "type": "Service", "parent": 1});
   // newData.nodes.push({"id":"ExternalGroup", "name":"External-Facing Activities", "cluster": "ExternalGroup", "type": "External", "parent": 1});
   newData.nodes.push({"id":"DirectorsOffice", "name":"Director's Office", "cluster": "DirectorsOffice", "type": "none", "parent": 1});
-  
-  newData = constructGroupParents(newData);
-  
-  // console.table(newData.nodes);
-  // console.table(newData.links); 
 
-  return newData; 
+  newData = constructGroupParents(newData);
+
+  // console.table(newData.nodes);
+  // console.table(newData.links);
+
+  return newData;
 }
 
 rawData = constructData(rawData.nodes);
@@ -741,7 +741,7 @@ var svg = d3.select("svg"),
     $svg = $('svg#visulisation');
     width = $svg.width();
 
-if (width > 900) width = 900;
+// if (width > 900) width = 900;
 
 var height = 1500;
 $svg.height(height); // make visulisation square
@@ -750,8 +750,8 @@ $svg.width(width); // make visulisation square
 var color = d3.scaleOrdinal(d3.schemeCategory20);
 var graph = rawData;
 
-//add zoom capabilities 
-//add encompassing group for the zoom 
+//add zoom capabilities
+//add encompassing group for the zoom
 var g = svg.append("g")
     .attr("class", "everything");
 function zoom_actions(){
@@ -759,13 +759,13 @@ function zoom_actions(){
 }
 var zoom_handler = d3.zoom()
     .on("zoom", zoom_actions);
-zoom_handler(svg);     
+zoom_handler(svg);
 
 var simulation = d3.forceSimulation()
       .force("link", d3.forceLink()
         .id(function(d) { return d.id; })
         .iterations(10)
-      
+
       .distance( function(d) {
         if (d.id == "DirectorsOffice")
           return 1;
@@ -773,7 +773,7 @@ var simulation = d3.forceSimulation()
           return 1;
         if (d.parent == 1)
           return 5;
-        
+
         return 90;
       })
       .strength(function(d) {
@@ -785,7 +785,7 @@ var simulation = d3.forceSimulation()
           return null;
         if (d.parent == 1)
           return .1;
-        
+
         return .2;
       })
      )
@@ -800,9 +800,9 @@ var simulation = d3.forceSimulation()
 //       //   return width/6;
 //       // if (Math.random() > 0.5)
 //       //   return width/2.1;
-      
+
 //       return height/2.5;
-      
+
 //       // return 400;
 //     },width / 2, height / 2).strength(.5))
     .force("force", d3.forceCollide( function(d) {
@@ -837,14 +837,14 @@ var simulation = d3.forceSimulation()
     .selectAll("line")
     .data(graph.links)
     .enter().append("line")
-      .attr("class", function(d) { 
+      .attr("class", function(d) {
         if (d.value == 0.1) {
           return "crosslink";
         }
         return "parent";
       });
-      // .attr("stroke-width", function(d) { 
-      //   return Math.sqrt(d.value); 
+      // .attr("stroke-width", function(d) {
+      //   return Math.sqrt(d.value);
       // });
 
   var node = g.selectAll(".node")
@@ -873,15 +873,15 @@ var simulation = d3.forceSimulation()
 
     node
       .attr("transform", positionNode);
-    
+
   }
 
 
   node.append("circle")
-      .attr("class", function(d) { 
+      .attr("class", function(d) {
         if (d.type === "Research" || d.type === "Service")
           return d.type.toLowerCase();
-        return d.cluster.toLowerCase(); 
+        return d.cluster.toLowerCase();
       })
       .on('mouseover', mouseOver)
       .on('mouseout', mouseOut)
@@ -893,7 +893,7 @@ var simulation = d3.forceSimulation()
 
        })
       // RADIUS BE HERE
-      .attr("r", function(d) { 
+      .attr("r", function(d) {
         if (d.id == "DirectorsOffice")
           return 20;
         if (d.id == "ResearchGroup" || d.id == "ServicesGroup" || d.id == "XXTechnical services")
@@ -955,7 +955,7 @@ var simulation = d3.forceSimulation()
       //first make all the nodes/links black(reset).
       $(".node circle").addClass("fade");
       $(".link line").addClass("fade");
-      
+
       //color the node which is hovered.
       $(this).addClass("highlight");
 
@@ -965,7 +965,7 @@ var simulation = d3.forceSimulation()
             return ((d.index == links.target.index) && item.index == links.source.index) || ((d.index == links.source.index) && item.index == links.target.index);
           });
           matchesNodes.selectAll("circle").classed('highlight', true);
-          
+
           var matchesLinks = link.filter(function(item){
             // console.log(item)
             return ((d.index == item.target.index)) || ((d.index == item.source.index));
@@ -1002,7 +1002,7 @@ var simulation = d3.forceSimulation()
   function fixPosition(item,x,y) {
       item.fixed = true;
       item.fx = x * width;
-      item.fy = y * height;    
+      item.fy = y * height;
   }
 
   // set initial static positions for nodes
@@ -1039,5 +1039,5 @@ if (item.id == 'Sarkans team: Functional genomics development') fixPosition(item
 if (item.id == 'Petryszak team: Gene Expression') fixPosition(item,0.4816941219930267,0.3378558730464741);
 if (item.id == 'Zerbino team: Genome Analysis') fixPosition(item,0.7494908877505634,0.3156349127875803);
 if (item.id == 'Flicek team: Vertebrate genomics') fixPosition(item,0.673602318431032,0.2793581579545089);
-    
+
   });
