@@ -1,0 +1,163 @@
+svg { border: 1px solid grey; }
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  background: #fff;
+}
+
+.infobox {
+  h1 {
+    margin-bottom: 0;
+    line-height: 1.8rem;
+  }
+  line-height: 1.6rem;
+  width: 30%;
+  min-width: 600px;
+  position: fixed;
+  background: #fff;
+  border: 1px solid #888;
+  padding: 0 1rem;
+  top: 1rem;
+  left: .5rem;
+}
+
+svg { width: 100%; }
+.fade {
+  opacity: .1;
+  transition: .3s;
+}
+.node {
+  .highlight {
+    opacity: 1;
+    transition: .3s;
+  }
+  foreignObject,
+  .label {
+    pointer-events: none;
+    font: 10px sans-serif;
+    transform: translate(-50px, 4px);
+    text-shadow:
+     -1px -1px 0 #fff,  
+      1px -1px 0 #fff,
+      -1px 1px 0 #fff,
+       1px 1px 0 #fff;
+    
+    &.circle-photo{
+      transform: translate(-53px,-32px);
+    }
+    
+    div {
+      height: 40px;
+      min-height: 40px;
+      vertical-align: top;
+      display: table-cell;
+      text-align: center;
+      min-width: 100px;
+      padding-top:13px;
+
+     .photo-bubble {
+        height: 40px;
+        display: block;
+        background-size: cover;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        border-radius: 40px;
+        width: 40px;
+        min-width: 40px;
+        max-height: 40px;
+        min-height: 40px;
+        padding: 0;
+        margin: 0 auto;
+       
+        transition: .3s;
+       
+        &.technical {
+          border: 2px solid #111;
+        }
+        &.administartion {
+          border: 2px solid #888;
+        }
+        &.research {
+          border: 2px solid rgb(168,200,19);
+        }
+        &.service {
+          border: 2px solid rgb(56,145,152);
+        }
+        &.industry,
+        &.training,
+        &.external {
+          border: 2px solid rgba(150, 25, 25, 0.91);
+        }
+        // &.relations {
+        //   border: 2px solid blue;
+        // }
+      
+      }
+      
+    
+    }
+  }
+  
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover foreignObject.circle-photo .photo-bubble {
+    width: 60px;
+    height: 60px;
+    min-height: 60px;
+  }
+
+  
+  circle {
+    stroke: #fff;
+    stroke-width: 1.5px;
+
+    // background-image: attr(data-photo url);
+    
+    &.research {
+      fill: rgb(168,200,19);
+    }
+    &.service {
+      fill: rgb(56,145,152);
+    }
+    &.administration {
+      fill: white;
+      stroke: #555;
+    }
+    &.technical {
+      fill: #444;
+    }
+    &.external {
+      fill: red;
+    }
+    // &.relations {
+    //   fill: blue;
+    // }
+  }
+}
+
+
+.link {
+  fill: none;
+  stroke: rgba(0,0,0,.2);
+  stroke-width: 1px;
+    transition: .3s;
+
+  line.highlight {
+    opacity: 1;
+    stroke-width: 1px;
+    stroke: rgba(233,180,0,.9);
+    stroke-dasharray: 2 5;
+  }
+  
+
+  .parent {
+    stroke-width: .8px;
+  }
+  .crosslink {
+    stroke: rgba(168,200,19,.5);
+    stroke-width: 1px;
+    stroke-dasharray: 2 5
+  }
+}

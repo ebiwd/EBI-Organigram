@@ -1,0 +1,146 @@
+svg {
+  border: 1px solid grey;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  background: #fff;
+}
+
+.infobox {
+  line-height: 1.6rem;
+  width: 30%;
+  min-width: 600px;
+  position: fixed;
+  background: #fff;
+  border: 1px solid #888;
+  padding: 0 1rem;
+  top: 1rem;
+  left: .5rem;
+}
+.infobox h1 {
+  margin-bottom: 0;
+  line-height: 1.8rem;
+}
+
+svg {
+  width: 100%;
+}
+
+.fade {
+  opacity: .1;
+  transition: .3s;
+}
+
+.node .highlight {
+  opacity: 1;
+  transition: .3s;
+}
+.node foreignObject,
+.node .label {
+  pointer-events: none;
+  font: 10px sans-serif;
+  transform: translate(-50px, 4px);
+  text-shadow: -1px -1px 0 #fff,   1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+}
+.node foreignObject.circle-photo,
+.node .label.circle-photo {
+  transform: translate(-53px, -32px);
+}
+.node foreignObject div,
+.node .label div {
+  height: 40px;
+  min-height: 40px;
+  vertical-align: top;
+  display: table-cell;
+  text-align: center;
+  min-width: 100px;
+  padding-top: 13px;
+}
+.node foreignObject div .photo-bubble,
+.node .label div .photo-bubble {
+  height: 40px;
+  display: block;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  border-radius: 40px;
+  width: 40px;
+  min-width: 40px;
+  max-height: 40px;
+  min-height: 40px;
+  padding: 0;
+  margin: 0 auto;
+  transition: .3s;
+}
+.node foreignObject div .photo-bubble.technical,
+.node .label div .photo-bubble.technical {
+  border: 2px solid #111;
+}
+.node foreignObject div .photo-bubble.administartion,
+.node .label div .photo-bubble.administartion {
+  border: 2px solid #888;
+}
+.node foreignObject div .photo-bubble.research,
+.node .label div .photo-bubble.research {
+  border: 2px solid #a8c813;
+}
+.node foreignObject div .photo-bubble.service,
+.node .label div .photo-bubble.service {
+  border: 2px solid #389198;
+}
+.node foreignObject div .photo-bubble.industry, .node foreignObject div .photo-bubble.training, .node foreignObject div .photo-bubble.external,
+.node .label div .photo-bubble.industry,
+.node .label div .photo-bubble.training,
+.node .label div .photo-bubble.external {
+  border: 2px solid rgba(150, 25, 25, 0.91);
+}
+.node:hover {
+  cursor: pointer;
+}
+.node:hover foreignObject.circle-photo .photo-bubble {
+  width: 60px;
+  height: 60px;
+  min-height: 60px;
+}
+.node circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+.node circle.research {
+  fill: #a8c813;
+}
+.node circle.service {
+  fill: #389198;
+}
+.node circle.administration {
+  fill: white;
+  stroke: #555;
+}
+.node circle.technical {
+  fill: #444;
+}
+.node circle.external {
+  fill: red;
+}
+
+.link {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.2);
+  stroke-width: 1px;
+  transition: .3s;
+}
+.link line.highlight {
+  opacity: 1;
+  stroke-width: 1px;
+  stroke: rgba(233, 180, 0, 0.9);
+  stroke-dasharray: 2 5;
+}
+.link .parent {
+  stroke-width: .8px;
+}
+.link .crosslink {
+  stroke: rgba(168, 200, 19, 0.5);
+  stroke-width: 1px;
+  stroke-dasharray: 2 5;
+}
